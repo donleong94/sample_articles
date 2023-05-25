@@ -1,0 +1,1 @@
+typedef Hmap = Map<String, dynamic>;
