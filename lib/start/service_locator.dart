@@ -5,6 +5,8 @@ import 'package:sample_article_flutter/local/user_preferences.dart';
 import 'package:sample_article_flutter/network/misc/dio_client.dart';
 import 'package:sample_article_flutter/network/misc/dio_interceptor_logger.dart';
 import 'package:sample_article_flutter/network/misc/dio_interceptor_main.dart';
+import 'package:sample_article_flutter/network/repository/article_repository.dart';
+import 'package:sample_article_flutter/network/service/article_service.dart';
 import 'package:sample_article_flutter/start/app_router.dart';
 import 'package:sample_article_flutter/start/build_environment.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -32,9 +34,9 @@ Future<void> startup() async {
 
   // Service
 
-  //sl.registerSingleton<ArticleService>(ArticleService(sl<DioClient>(instanceName: ValueConstants.articleClient)));
+  sl.registerSingleton<ArticleService>(ArticleService(sl<DioClient>(instanceName: ValueConstants.articleClient)));
 
   // Repository
 
-  //sl.registerSingleton<ArticleRepository>(ArticleRepository(sl<ArticleService>()));
+  sl.registerSingleton<ArticleRepository>(ArticleRepository(sl<ArticleService>()));
 }

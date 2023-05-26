@@ -5,9 +5,11 @@
   "popular": "Popular",
   "mostViewed": "Most Viewed",
   "articles": "Articles",
+  "noItem": "There is no article result.",
   "searchArticlesHere": "Search articles here...",
   "locationDisabledMsg": "Location services are disabled.",
   "locationPermissionDeniedMsg": "Location permissions are denied.",
   "locationPermaBannedMsg": "Location permissions are permanently denied, we cannot request permissions.",
-  "locationEnabledMsg": "Location services are enabled."
+  "locationEnabledMsg": "Location services are enabled.",
+  "searchTextEmptyMsg": "The search text is empty."
 }

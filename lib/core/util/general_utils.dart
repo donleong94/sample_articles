@@ -1,16 +1,36 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:localization/localization.dart';
 import 'package:sample_article_flutter/core/style/app_color.dart';
 import 'package:sample_article_flutter/core/util/navigation_service.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:sample_article_flutter/core/widget/custom_toast.dart';
 import 'package:sample_article_flutter/start/service_locator.dart';
+import 'package:stream_transform/stream_transform.dart' show RateLimit;
 
 class GeneralUtils {
+  // For bloc handling
+  static EventTransformer<E> throttleDroppable<E>() {
+    const throttleDuration = Duration(milliseconds: 200);
+
+    return (events, mapper) {
+      return droppable<E>().call(events.throttle(throttleDuration), mapper);
+    };
+  }
+
+  static showGeneralToast(String message) {
+    sl<CustomToast>().showGeneralToast(
+      context: NavigationService.ctx!,
+      msg: message,
+    );
+  }
+
   static setupTimer({
     int durationMs = 250,
     required Function() callback,
@@ -160,6 +180,17 @@ extension EmptyPadding on num {
   }
 }
 
+// For date time
+extension CustomDateFormat on DateFormat {
+  DateTime? tryParse(String inputString) {
+    try {
+      return parse(inputString);
+    } catch (e) {
+      return null;
+    }
+  }
+}
+
 // For handling unusual JSON boolean value
 bool fromDynamicToBool(dynamic value) {
   if (value is bool) {
@@ -177,11 +208,7 @@ Future<bool> checkLocationService() async {
   bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
 
   if (!serviceEnabled) {
-    sl<CustomToast>().showGeneralToast(
-      context: NavigationService.ctx!,
-      msg: "locationDisabledMsg".i18n(),
-    );
-
+    GeneralUtils.showGeneralToast("locationDisabledMsg".i18n());
     return false;
   } else {
     LocationPermission permission = await Geolocator.checkPermission();
@@ -190,33 +217,17 @@ Future<bool> checkLocationService() async {
       permission = await Geolocator.requestPermission();
 
       if (permission == LocationPermission.denied) {
-        sl<CustomToast>().showGeneralToast(
-          context: NavigationService.ctx!,
-          msg: "locationPermissionDeniedMsg".i18n(),
-        );
-
+        GeneralUtils.showGeneralToast("locationPermissionDeniedMsg".i18n());
         return false;
       } else if (permission == LocationPermission.deniedForever) {
-        sl<CustomToast>().showGeneralToast(
-          context: NavigationService.ctx!,
-          msg: "locationPermaBannedMsg".i18n(),
-        );
-
+        GeneralUtils.showGeneralToast("locationPermaBannedMsg".i18n());
         return false;
       } else {
-        sl<CustomToast>().showGeneralToast(
-          context: NavigationService.ctx!,
-          msg: "locationEnabledMsg".i18n(),
-        );
-
+        GeneralUtils.showGeneralToast("locationEnabledMsg".i18n());
         return true;
       }
     } else {
-      sl<CustomToast>().showGeneralToast(
-        context: NavigationService.ctx!,
-        msg: "locationEnabledMsg".i18n(),
-      );
-
+      GeneralUtils.showGeneralToast("locationEnabledMsg".i18n());
       return true;
     }
   }

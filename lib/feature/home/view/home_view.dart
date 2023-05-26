@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:localization/localization.dart';
+import 'package:sample_article_flutter/core/constant/value_constants.dart';
 import 'package:sample_article_flutter/core/style/app_color.dart';
 import 'package:sample_article_flutter/core/util/general_utils.dart';
 import 'package:sample_article_flutter/start/app_router.dart';
@@ -39,7 +40,9 @@ class _HomeViewState extends State<HomeView> {
         _itemEntryView(
           title: "searchArticle".i18n(),
           onClicked: () {
-            AutoRouter.of(context).push(const SearchRoute());
+            AutoRouter.of(context).push(
+              const SearchRoute(),
+            );
           },
         ),
         36.ph,
@@ -55,7 +58,13 @@ class _HomeViewState extends State<HomeView> {
         ),
         _itemEntryView(
           title: "mostViewed".i18n(),
-          onClicked: () {},
+          onClicked: () {
+            AutoRouter.of(context).push(
+              ArticleListRoute(
+                listType: ValueConstants.mostViewedListType,
+              ),
+            );
+          },
         ),
       ],
     );
