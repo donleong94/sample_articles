@@ -27,6 +27,17 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const HomeScreen(),
       );
     },
+    ArticleListRoute.name: (routeData) {
+      final args = routeData.argsAs<ArticleListRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: ArticleListScreen(
+          key: args.key,
+          listType: args.listType,
+          searchStr: args.searchStr,
+        ),
+      );
+    },
   };
 }
 
@@ -56,4 +67,47 @@ class HomeRoute extends PageRouteInfo<void> {
   static const String name = 'HomeRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [ArticleListScreen]
+class ArticleListRoute extends PageRouteInfo<ArticleListRouteArgs> {
+  ArticleListRoute({
+    Key? key,
+    required int listType,
+    String searchStr = "",
+    List<PageRouteInfo>? children,
+  }) : super(
+          ArticleListRoute.name,
+          args: ArticleListRouteArgs(
+            key: key,
+            listType: listType,
+            searchStr: searchStr,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'ArticleListRoute';
+
+  static const PageInfo<ArticleListRouteArgs> page =
+      PageInfo<ArticleListRouteArgs>(name);
+}
+
+class ArticleListRouteArgs {
+  const ArticleListRouteArgs({
+    this.key,
+    required this.listType,
+    this.searchStr = "",
+  });
+
+  final Key? key;
+
+  final int listType;
+
+  final String searchStr;
+
+  @override
+  String toString() {
+    return 'ArticleListRouteArgs{key: $key, listType: $listType, searchStr: $searchStr}';
+  }
 }

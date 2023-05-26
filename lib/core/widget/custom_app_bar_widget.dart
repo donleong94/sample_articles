@@ -51,11 +51,10 @@ class CustomAppBarWidget extends StatelessWidget implements PreferredSizeWidget 
               },
               icon: Padding(
                 padding: EdgeInsets.all(2.h),
-                child: Image.asset(
-                  "ic_arrow_left".toIconPng,
-                  height: 20.h,
-                  width: 20.h,
-                  color: AppColor.mainColor,
+                child: Icon(
+                  Icons.chevron_left,
+                  size: 24.h,
+                  color: AppColor.commonBlack,
                 ),
               ),
             )

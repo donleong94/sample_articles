@@ -7,4 +7,8 @@ class ValueConstants {
 
   // Dio client instance name
   static const String articleClient = "articleClient";
+
+  // List type
+  static const int mostViewedListType = 101;
+  static const int searchListType = 102;
 }

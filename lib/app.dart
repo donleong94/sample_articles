@@ -40,7 +40,9 @@ class AppView extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             routerDelegate: AutoRouterDelegate(
               router,
-              initialRoutes: [],
+              initialRoutes: [
+                const HomeRoute(),
+              ],
             ),
             routeInformationParser: router.defaultRouteParser(),
             title: "",
