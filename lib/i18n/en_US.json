@@ -1,5 +1,10 @@
 {
+  "nyt": "NYT",
   "search": "Search",
+  "searchArticle": "Search Article",
+  "popular": "Popular",
+  "mostViewed": "Most Viewed",
+  "searchArticlesHere": "Search articles here...",
   "locationDisabledMsg": "Location services are disabled.",
   "locationPermissionDeniedMsg": "Location permissions are denied.",
   "locationPermaBannedMsg": "Location permissions are permanently denied, we cannot request permissions.",

@@ -12,5 +12,8 @@ class AppRouter extends _$AppRouter {
   }
 
   @override
-  final List<AutoRoute> routes = [];
+  final List<AutoRoute> routes = [
+    AutoRoute(page: HomeRoute.page, path: "/home"),
+    AutoRoute(page: SearchRoute.page, path: "/search"),
+  ];
 }
