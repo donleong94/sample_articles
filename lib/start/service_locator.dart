@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:sample_article_flutter/core/constant/value_constants.dart';
+import 'package:sample_article_flutter/core/widget/custom_toast.dart';
 import 'package:sample_article_flutter/local/user_preferences.dart';
 import 'package:sample_article_flutter/network/misc/dio_client.dart';
 import 'package:sample_article_flutter/network/misc/dio_interceptor_logger.dart';
@@ -17,6 +18,7 @@ Future<void> startup() async {
 
   sl.registerSingleton<AppRouter>(AppRouter());
   sl.registerLazySingleton<UserPreferences>(() => UserPreferences(prefs: prefs));
+  sl.registerSingleton<CustomToast>(CustomToast.start());
 
   // Dio - Base + Interceptor + Logger
 

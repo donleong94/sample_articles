@@ -1,3 +1,7 @@
 {
-  "search": "Search"
+  "search": "Search",
+  "locationDisabledMsg": "Location services are disabled.",
+  "locationPermissionDeniedMsg": "Location permissions are denied.",
+  "locationPermaBannedMsg": "Location permissions are permanently denied, we cannot request permissions.",
+  "locationEnabledMsg": "Location services are enabled."
 }

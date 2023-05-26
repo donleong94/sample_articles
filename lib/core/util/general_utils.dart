@@ -3,8 +3,12 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:localization/localization.dart';
 import 'package:sample_article_flutter/core/style/app_color.dart';
 import 'package:sample_article_flutter/core/util/navigation_service.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:sample_article_flutter/core/widget/custom_toast.dart';
+import 'package:sample_article_flutter/start/service_locator.dart';
 
 class GeneralUtils {
   static setupTimer({
@@ -166,5 +170,54 @@ bool fromDynamicToBool(dynamic value) {
     return value == "true" || value == "1" ? true : false;
   } else {
     return false;
+  }
+}
+
+Future<bool> checkLocationService() async {
+  bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+
+  if (!serviceEnabled) {
+    sl<CustomToast>().showGeneralToast(
+      context: NavigationService.ctx!,
+      msg: "locationDisabledMsg".i18n(),
+    );
+
+    return false;
+  } else {
+    LocationPermission permission = await Geolocator.checkPermission();
+
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+
+      if (permission == LocationPermission.denied) {
+        sl<CustomToast>().showGeneralToast(
+          context: NavigationService.ctx!,
+          msg: "locationPermissionDeniedMsg".i18n(),
+        );
+
+        return false;
+      } else if (permission == LocationPermission.deniedForever) {
+        sl<CustomToast>().showGeneralToast(
+          context: NavigationService.ctx!,
+          msg: "locationPermaBannedMsg".i18n(),
+        );
+
+        return false;
+      } else {
+        sl<CustomToast>().showGeneralToast(
+          context: NavigationService.ctx!,
+          msg: "locationEnabledMsg".i18n(),
+        );
+
+        return true;
+      }
+    } else {
+      sl<CustomToast>().showGeneralToast(
+        context: NavigationService.ctx!,
+        msg: "locationEnabledMsg".i18n(),
+      );
+
+      return true;
+    }
   }
 }
