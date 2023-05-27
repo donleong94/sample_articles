@@ -1,9 +1,10 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'most_viewed_result_item.g.dart';
 
 @JsonSerializable(ignoreUnannotated: false)
-class MostViewedResultItem {
+class MostViewedResultItem extends Equatable {
   @JsonKey(name: 'url')
   final String? url;
 
@@ -13,11 +14,20 @@ class MostViewedResultItem {
   @JsonKey(name: 'title')
   final String? title;
 
-  MostViewedResultItem({
+  const MostViewedResultItem({
     this.url,
     this.publishedDate,
     this.title,
   });
+
+  @override
+  List<Object?> get props {
+    return [
+      url,
+      publishedDate,
+      title,
+    ];
+  }
 
   factory MostViewedResultItem.fromJson(Map<String, dynamic> json) => _$MostViewedResultItemFromJson(json);
 
