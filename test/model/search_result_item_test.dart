@@ -1,44 +1,21 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:sample_article_flutter/model/headline_data.dart';
 import 'package:sample_article_flutter/model/search_result_item.dart';
 
+import '../general_data.dart';
+
 void main() {
-  const headlineTestData = HeadlineData(
-    main: "Test Title",
-  );
-
-  const sampleTestJson = """{
-    "web_url": "https://www.test.com/",
-    "headline": {
-      "main": "Test Title"
-    },
-    "pub_date": "2023-05-31"
-  }""";
-
-  const sampleTestData = SearchResultItem(
-    webUrl: "https://www.test.com/",
-    headline: headlineTestData,
-    pubDate: "2023-05-31",
-  );
-
-  const sampleTestMap = {
-    "web_url": "https://www.test.com/",
-    "headline": headlineTestData,
-    "pub_date": "2023-05-31",
-  };
-
   test(
     "make sure the props value is correct",
     () async {
       // assert
       expect(
-        sampleTestData.props,
+        searchResultTestData.props,
         [
-          sampleTestData.webUrl,
-          sampleTestData.headline,
-          sampleTestData.pubDate,
+          searchResultTestData.webUrl,
+          searchResultTestData.headline,
+          searchResultTestData.pubDate,
         ],
       );
     },
@@ -49,13 +26,13 @@ void main() {
       "make sure the fromJson function returns a valid model object when reading valid JSON",
       () async {
         // arrange
-        final Map<String, dynamic> tempData = json.decode(sampleTestJson);
+        final Map<String, dynamic> tempData = json.decode(searchResultTestJson);
 
         // act
         final result = SearchResultItem.fromJson(tempData);
 
         // assert
-        expect(result, sampleTestData);
+        expect(result, searchResultTestData);
       },
     );
   });
@@ -65,10 +42,10 @@ void main() {
       "make sure the toJson function returns a JSON value in the form of a valid map object when converting model data to JSON",
       () async {
         // arrange
-        final tempData = sampleTestData.toJson();
+        final tempData = searchResultTestData.toJson();
 
         // assert
-        expect(tempData, sampleTestMap);
+        expect(tempData, searchResultTestMap1);
       },
     );
   });

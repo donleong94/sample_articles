@@ -3,35 +3,19 @@ import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sample_article_flutter/model/most_viewed_result_item.dart';
 
+import '../general_data.dart';
+
 void main() {
-  const sampleTestJson = """{
-    "url": "https://www.test.com/",
-    "published_date": "2023-05-31",
-    "title": "Test Title"
-  }""";
-
-  const sampleTestData = MostViewedResultItem(
-    url: "https://www.test.com/",
-    publishedDate: "2023-05-31",
-    title: "Test Title",
-  );
-
-  const sampleTestMap = {
-    "url": "https://www.test.com/",
-    "published_date": "2023-05-31",
-    "title": "Test Title",
-  };
-
   test(
     "make sure the props value is correct",
     () async {
       // assert
       expect(
-        sampleTestData.props,
+        mostViewedResultTestData.props,
         [
-          sampleTestData.url,
-          sampleTestData.publishedDate,
-          sampleTestData.title,
+          mostViewedResultTestData.url,
+          mostViewedResultTestData.publishedDate,
+          mostViewedResultTestData.title,
         ],
       );
     },
@@ -42,13 +26,13 @@ void main() {
       "make sure the fromJson function returns a valid model object when reading valid JSON",
       () async {
         // arrange
-        final Map<String, dynamic> tempData = json.decode(sampleTestJson);
+        final Map<String, dynamic> tempData = json.decode(mostViewResultTestJson);
 
         // act
         final result = MostViewedResultItem.fromJson(tempData);
 
         // assert
-        expect(result, sampleTestData);
+        expect(result, mostViewedResultTestData);
       },
     );
   });
@@ -58,10 +42,10 @@ void main() {
       "make sure the toJson function returns a JSON value in the form of a valid map object when converting model data to JSON",
       () async {
         // arrange
-        final tempData = sampleTestData.toJson();
+        final tempData = mostViewedResultTestData.toJson();
 
         // assert
-        expect(tempData, sampleTestMap);
+        expect(tempData, mostViewResultTestMap);
       },
     );
   });

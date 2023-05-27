@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:sample_article_flutter/network/misc/dio_custom_response.dart';
 
+// For caching API result into local storage
 final dioCacheOptions = CacheOptions(
   store: MemCacheStore(),
   policy: CachePolicy.request,
